@@ -8,4 +8,4 @@ export interface Todo {
 export type RootStackParamList = {
   Home: undefined;
   AddTodo: undefined;
-};
+}

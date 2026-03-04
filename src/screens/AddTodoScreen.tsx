@@ -1,14 +1,62 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
 
 import { useTodos } from '../hooks/useTodos';
+import { colors, radii, shadows, spacing, typography } from '../theme';
 import { RootStackParamList } from '../types';
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'AddTodo'>;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: spacing.lg,
+    backgroundColor: colors.background,
+  },
+  input: {
+    backgroundColor: colors.surface,
+    padding: spacing.md,
+    borderRadius: radii.md,
+    marginBottom: spacing.md,
+    fontSize: typography.input,
+    color: colors.textPrimary,
+    ...shadows.card,
+  },
+  multiline: {
+    height: 120,
+    textAlignVertical: 'top',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: spacing.lg,
+    gap: spacing.sm,
+  },
+  button: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+    borderRadius: radii.md,
+  },
+  backButton: {
+    backgroundColor: colors.danger,
+  },
+  saveButton: {
+    backgroundColor: colors.success,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: typography.input,
+    fontWeight: 'bold',
+    marginLeft: spacing.sm,
+  },
+});
 
 export default function AddTodoScreen({ navigation }: Props): React.JSX.Element {
   const [title, setTitle] = useState<string>('');
@@ -68,54 +116,3 @@ export default function AddTodoScreen({ navigation }: Props): React.JSX.Element 
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#F5F5F5',
-  },
-  input: {
-    backgroundColor: 'white',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 12,
-    fontSize: 16,
-    color: '#212121',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
-  multiline: {
-    height: 120,
-    textAlignVertical: 'top',
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 16,
-    gap: 8,
-  },
-  button: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 14,
-    borderRadius: 8,
-  },
-  backButton: {
-    backgroundColor: '#f44336',
-  },
-  saveButton: {
-    backgroundColor: '#4CAF50',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-  },
-});

@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+import { colors, radii, shadows, spacing, typography } from '../theme';
 import { Todo } from '../types';
 
 interface Props {
@@ -14,9 +15,9 @@ export default function TodoItem({ item, onFinish, onDelete }: Props): React.JSX
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.todoItem}>
       <TouchableOpacity
-        style={styles.header}
+        style={styles.todoHeader}
         onPress={() => setExpanded(!expanded)}
         activeOpacity={0.7}
       >
@@ -26,12 +27,12 @@ export default function TodoItem({ item, onFinish, onDelete }: Props): React.JSX
         <Ionicons
           name={expanded ? 'chevron-up' : 'chevron-down'}
           size={20}
-          color="#666"
+          color={colors.icon}
         />
       </TouchableOpacity>
 
       {expanded && (
-        <View style={styles.body}>
+        <View style={styles.todoBody}>
           <Text style={styles.description}>{item.description}</Text>
           <View style={styles.controlPanel}>
             {!item.finished && (
@@ -40,7 +41,7 @@ export default function TodoItem({ item, onFinish, onDelete }: Props): React.JSX
                 style={styles.iconButton}
                 activeOpacity={0.7}
               >
-                <Ionicons name="checkmark-circle" size={32} color="#4CAF50" />
+                <Ionicons name="checkmark-circle" size={32} color={colors.success} />
               </TouchableOpacity>
             )}
             <TouchableOpacity
@@ -48,7 +49,7 @@ export default function TodoItem({ item, onFinish, onDelete }: Props): React.JSX
               style={styles.iconButton}
               activeOpacity={0.7}
             >
-              <Ionicons name="trash" size={32} color="#f44336" />
+              <Ionicons name="trash" size={32} color={colors.danger} />
             </TouchableOpacity>
           </View>
         </View>
@@ -58,46 +59,42 @@ export default function TodoItem({ item, onFinish, onDelete }: Props): React.JSX
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    marginBottom: 8,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+  todoItem: {
+    backgroundColor: colors.surface,
+    borderRadius: radii.md,
+    marginBottom: spacing.sm,
+    ...shadows.card,
     overflow: 'hidden',
   },
-  header: {
+  todoHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    padding: spacing.lg,
   },
   title: {
-    fontSize: 16,
+    fontSize: typography.title,
     fontWeight: '500',
     flex: 1,
-    marginRight: 8,
-    color: '#212121',
+    marginRight: spacing.sm,
+    color: colors.textPrimary,
   },
   finishedTitle: {
     textDecorationLine: 'line-through',
-    color: '#9E9E9E',
+    color: colors.textMuted,
   },
-  body: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
+  todoBody: {
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
     borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
+    borderTopColor: colors.divider,
   },
   description: {
-    fontSize: 14,
-    color: '#616161',
-    marginTop: 12,
-    marginBottom: 12,
-    lineHeight: 20,
+    fontSize: typography.body,
+    color: colors.textSecondary,
+    marginTop: spacing.md,
+    marginBottom: spacing.md,
+    lineHeight: typography.lineHeightBody,
   },
   controlPanel: {
     flexDirection: 'row',
@@ -105,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconButton: {
-    marginLeft: 16,
-    padding: 4,
+    marginLeft: spacing.lg,
+    padding: spacing.xs,
   },
 });
