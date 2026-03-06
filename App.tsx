@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
 import AddTodoScreen from './src/screens/AddTodoScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -26,6 +27,7 @@ export default function App(): React.JSX.Element {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast />
     </GestureHandlerRootView>
   );
 }

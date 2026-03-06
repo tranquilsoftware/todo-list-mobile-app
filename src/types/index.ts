@@ -6,6 +6,6 @@ export interface Todo {
 }
 
 export type RootStackParamList = {
-  Home: undefined;
+  Home: { successMessage?: string };
   AddTodo: undefined;
-}
+};

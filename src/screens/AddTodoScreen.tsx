@@ -1,7 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import { useTodos } from '../hooks/useTodos';
 import { colors, radii, shadows, spacing, typography } from '../theme';
@@ -65,13 +66,18 @@ export default function AddTodoScreen({ navigation }: Props): React.JSX.Element 
 
   const handleSave = async (): Promise<void> => {
     if (!title.trim() || !description.trim()) {
-      Alert.alert('Validation Error', 'Title and Description cannot be empty.');
+      Toast.show({
+        type: 'error',
+        text1: 'Validation Error',
+        text2: 'Title and Description cannot be empty.',
+        visibilityTime: 3000,
+      });
       return;
     }
     await addTodo(title, description);
-    Alert.alert('Success', 'Todo Added Successfully.');
     setTitle('');
     setDescription('');
+    navigation.navigate('Home', { successMessage: 'Todo Added Successfully.' });
   };
 
   return (
