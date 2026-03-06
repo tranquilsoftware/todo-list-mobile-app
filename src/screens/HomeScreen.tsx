@@ -48,8 +48,27 @@ export default function HomeScreen({ navigation, route }: Props): React.JSX.Elem
     { title: 'Completed', data: completedTodos },
   ];
 
+  const handleFinish = async (id: string): Promise<void> => {
+    await finishTodo(id);
+    Toast.show({
+      type: 'success',
+      text1: 'Todo Completed',
+      text2: 'Nice work!',
+      visibilityTime: 2500,
+    });
+  };
+
+  const handleDelete = async (id: string): Promise<void> => {
+    await deleteTodo(id);
+    Toast.show({
+      type: 'error',
+      text1: 'Todo Deleted',
+      visibilityTime: 2500,
+    });
+  };
+
   const renderItem = ({ item }: { item: Todo }): React.JSX.Element => (
-    <TodoItem item={item} onFinish={finishTodo} onDelete={deleteTodo} />
+    <TodoItem item={item} onFinish={handleFinish} onDelete={handleDelete} />
   );
 
   const renderSectionHeader = ({
